@@ -4498,3 +4498,6 @@ org.h2.message.DbException: The connection was not closed by the application and
 Caused by: org.h2.jdbc.JdbcSQLException: The connection was not closed by the application and is garbage collected [90018-187]
 	at org.h2.message.DbException.getJdbcSQLException(DbException.java:345)
 	... 184 more
+08-15 15:34:11 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLException: Syntax error in SQL statement "FIRST_NAME[*]"; expected "FROM, {"; SQL statement:
+FIRST_NAME [42001-187]
