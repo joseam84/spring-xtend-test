@@ -1,5 +1,7 @@
 package com.jam.web;
 
+import com.jam.models.Address;
+import com.jam.models.AddressRepository;
 import com.jam.models.Employee;
 import com.jam.models.EmployeeRepository;
 import com.jam.models.Person;
@@ -20,7 +22,10 @@ public class SampleController {
   private PersonRepository personRepo;
   
   @Autowired
-  private EmployeeRepository empRepo;
+  private EmployeeRepository employeeRepo;
+  
+  @Autowired
+  private AddressRepository addressRepo;
   
   @RequestMapping("/")
   @ResponseBody
@@ -34,8 +39,10 @@ public class SampleController {
   public String testPersons() {
     String _xblockexpression = null;
     {
-      Person _person = new Person("Angel", "Fonta");
-      this.personRepo.<Person>save(_person);
+      final Person angel = new Person("Angel", "Fonta");
+      Address _address = new Address("456 E Main St.", "", "Cacolina", "PR", "00929", "US");
+      angel.setAddress(_address);
+      this.personRepo.<Person>save(angel);
       List<Person> _findByLastName = this.personRepo.findByLastName("Fonta");
       _xblockexpression = _findByLastName.toString();
     }
@@ -48,9 +55,22 @@ public class SampleController {
     String _xblockexpression = null;
     {
       Employee _employee = new Employee("Jose", "Matos");
-      this.empRepo.<Employee>save(_employee);
-      List<Employee> _findByLastName = this.empRepo.findByLastName("Matos");
+      this.employeeRepo.<Employee>save(_employee);
+      List<Employee> _findByLastName = this.employeeRepo.findByLastName("Matos");
       _xblockexpression = _findByLastName.toString();
+    }
+    return _xblockexpression;
+  }
+  
+  @RequestMapping("/addresses")
+  @Transactional
+  public String testAddresses() {
+    String _xblockexpression = null;
+    {
+      Address _address = new Address("123 Main St.", "", "Caguas", "PR", "00727", "US");
+      this.addressRepo.<Address>save(_address);
+      List<Person> _findByZipCode = this.addressRepo.findByZipCode("00727");
+      _xblockexpression = _findByZipCode.toString();
     }
     return _xblockexpression;
   }

@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RestController
 import org.springframework.transaction.annotation.Transactional
 import com.jam.models.Employee
 import com.jam.models.EmployeeRepository
+import com.jam.models.Address
+import com.jam.models.AddressRepository
 
 @RestController
 @Transactional
 class SampleController {
 	@Autowired PersonRepository personRepo
-	@Autowired EmployeeRepository empRepo
+	@Autowired EmployeeRepository employeeRepo
+	@Autowired AddressRepository addressRepo
 	@RequestMapping("/")
 	@ResponseBody
 	def String home(){
@@ -24,13 +27,21 @@ class SampleController {
 	@RequestMapping("/persons")
 	@Transactional
 	def String testPersons(){
-		personRepo.save(new Person("Angel","Fonta"))
+	    val angel = new Person("Angel","Fonta")
+		angel.address = new Address("456 E Main St.","","Cacolina","PR","00929","US")
+		personRepo.save(angel)
 		personRepo.findByLastName("Fonta").toString
 	}	
 	@RequestMapping("/employees")
 	@Transactional
 	def String testEmployees(){
-		empRepo.save(new Employee("Jose","Matos"))
-		empRepo.findByLastName("Matos").toString
+		employeeRepo.save(new Employee("Jose","Matos"))
+		employeeRepo.findByLastName("Matos").toString
 	}	
+	@RequestMapping("/addresses")
+    @Transactional
+    def String testAddresses(){
+        addressRepo.save(new Address("123 Main St.","","Caguas","PR","00727","US"))
+        addressRepo.findByZipCode("00727").toString
+    }
 }

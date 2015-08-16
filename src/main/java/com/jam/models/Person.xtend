@@ -13,11 +13,16 @@ import javax.persistence.DiscriminatorType
 import javax.persistence.DiscriminatorColumn
 import java.util.List
 import org.springframework.data.repository.CrudRepository
+import javax.persistence.OneToOne
+import javax.persistence.CascadeType
+import javax.persistence.JoinColumn
+import org.eclipse.xtend.lib.annotations.ToString
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 @DiscriminatorColumn(name="person_type", discriminatorType=DiscriminatorType.STRING)
 @Table(name ="person")
+@ToString
 class Person implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -25,14 +30,13 @@ class Person implements Serializable {
     @Accessors private String firstName;
     @Accessors private String lastName;
     @Accessors private String email;
+    @OneToOne(cascade = CascadeType.ALL) 
+    @JoinColumn(name="ADDRESS_ID") 
+    @Accessors private Address address;
     new(){}
     new(String firstName, String lastName){
         this.firstName = firstName
         this.lastName = lastName
-    }
-    override String toString() {
-        String.format("Person[id=%d, firstName='%s', lastName='%s']",
-                id, firstName, lastName)
     }
 }
 
