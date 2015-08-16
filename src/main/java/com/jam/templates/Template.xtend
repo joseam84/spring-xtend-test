@@ -1,5 +1,5 @@
 package com.jam.templates
 
 interface Template {
-	def String content()
+    def String content()
 }

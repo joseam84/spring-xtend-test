@@ -15,18 +15,18 @@ public class HelloFonta implements Template {
     StringConcatenation _builder = new StringConcatenation();
     _builder.append("<html>");
     _builder.newLine();
-    _builder.append("\t");
+    _builder.append("    ");
     _builder.append("<body>");
     _builder.newLine();
     {
       IntegerRange _upTo = new IntegerRange(1, 10);
       for(final Integer it : _upTo) {
-        _builder.append("\t");
+        _builder.append("    ");
         _builder.append("<div>Hello Fonta Hello!!!</div>");
         _builder.newLine();
       }
     }
-    _builder.append("\t");
+    _builder.append("    ");
     _builder.append("</body>");
     _builder.newLine();
     _builder.append("</html>");

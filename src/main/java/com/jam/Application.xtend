@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication
 
 @SpringBootApplication
 class Application {
-	def static void main(String[] args){
-		SpringApplication.run(Application, args)
-	}
+    def static void main(String[] args){
+        SpringApplication.run(Application, args)
+    }
 }
