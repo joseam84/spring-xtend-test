@@ -45,6 +45,7 @@ class AddressDTO{
    @Accessors String zipCode
    @Accessors String country 
    new(){}
+    
 }
 /**
  * Extension classes for address
