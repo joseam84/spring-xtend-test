@@ -9,6 +9,7 @@ import java.util.List
 import org.springframework.data.repository.CrudRepository
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.ToString
+import org.eclipse.xtend.lib.annotations.Data
 
 @Entity
 @Table(name ="address")
@@ -32,6 +33,42 @@ class Address {
         this.state = state
         this.zipCode = zipCode
         this.country = country
+    }
+}
+
+class AddressDTO{
+   @Accessors String id
+   @Accessors String addressLine1
+   @Accessors String addressLine2
+   @Accessors String city
+   @Accessors String state
+   @Accessors String zipCode
+   @Accessors String country 
+   new(){}
+}
+/**
+ * Extension classes for address
+ */
+class AddressExtensions{
+    def static Address toEntity(AddressDTO aDto){
+        new Address() => [
+            id = aDto.id
+            addressLine1 = aDto.addressLine1
+            addressLine2 = aDto.addressLine2
+            city = aDto.city
+            state = aDto.state
+            zipCode = aDto.zipCode
+            country = aDto.country
+        ]
+    }
+    def static AddressDTO toDTO(Address address){
+        new AddressDTO => [id = address.id 
+                           addressLine1 = address.addressLine1 
+                           addressLine2 = address.addressLine2
+                           city = address.city
+                           state = address.state
+                           zipCode = address.zipCode
+                           country = address.country]
     }
 }
 
