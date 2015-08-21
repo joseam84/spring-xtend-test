@@ -10,3 +10,8 @@ interface  BaseService<T,Out> {
     def Optional<Out> findById(Long id)
     def Out update(T todo)
 }
+
+interface DTOExtensions<Entity, DTO>{
+    def Entity toEntity(DTO dto)
+    def DTO toDTO(Entity entity)
+}

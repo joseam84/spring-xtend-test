@@ -1,15 +1,14 @@
 package com.jam.models
 
+import java.util.List
 import javax.persistence.Entity
-import javax.persistence.Table
-import javax.persistence.Id
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
-import java.util.List
-import org.springframework.data.repository.CrudRepository
+import javax.persistence.Id
+import javax.persistence.Table
 import org.eclipse.xtend.lib.annotations.Accessors
 import org.eclipse.xtend.lib.annotations.ToString
-import org.eclipse.xtend.lib.annotations.Data
+import org.springframework.data.repository.CrudRepository
 
 @Entity
 @Table(name ="address")

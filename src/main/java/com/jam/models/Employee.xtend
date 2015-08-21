@@ -12,17 +12,24 @@ import static extension com.jam.models.AddressExtensions.*
 import org.springframework.stereotype.Service
 import org.springframework.beans.factory.annotation.Autowired
 import java.util.Optional
+import javax.persistence.OneToMany
+import java.util.Set
 
 @Entity
 @Table(name ="employee")
 @DiscriminatorValue("employee")
 @ToString
+@Accessors
 class Employee extends Person {
-    @Accessors private String employeeNumber
+    private String employeeNumber
+    @OneToMany(targetEntity=Task, cascade=ALL, mappedBy="employee")
+    private Set<Task> tasks
     new(){}
     new(String firstName, String lastName) {
         super(firstName, lastName)
     }
+    
+    
 }
 
 class EmployeeDTO extends PersonDTO{
@@ -30,7 +37,7 @@ class EmployeeDTO extends PersonDTO{
     new(){}
 }
 
-class EmployeeExtension{
+class EmployeeExtension {
     def static Employee toEntity(EmployeeDTO employee){
         new Employee => [id = employee.id
                          firstName = employee.firstName 
@@ -85,6 +92,7 @@ class EmployeeService implements BaseService<EmployeeDTO, Employee>{
         return persisted
     }
 }
+
 class EmployeeNotFoundException extends Exception{
     new(Long id) {
         super("Employee id " + id + " not found.")

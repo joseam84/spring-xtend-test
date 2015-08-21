@@ -28,30 +28,31 @@ import static extension com.jam.models.AddressExtensions.*
 @DiscriminatorColumn(name="person_type", discriminatorType=DiscriminatorType.STRING)
 @Table(name ="person")
 @ToString
+@Accessors
 class Person implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Accessors private long id;
-    @Accessors private String firstName;
-    @Accessors private String lastName;
-    @Accessors private String email;
+    private long id;
+    private String firstName;
+    private String lastName;
+    private String email;
     @OneToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name="ADDRESS_ID") 
-    @Accessors private Address address;
+    private Address address;
     new(){}
     new(String firstName, String lastName) {
         this.firstName = firstName
         this.lastName = lastName
     }
 }
-
+@Accessors
 class PersonDTO{
-   @Accessors var long id                    
-   @Accessors var String firstName           
-   @Accessors var String lastName            
-   @Accessors var String email                  
-   @Accessors var AddressDTO address
-   new(){}
+    var long id                    
+    var String firstName           
+    var String lastName            
+    var String email                  
+    var AddressDTO address
+    new(){}
 }
 interface PersonRepository extends CrudRepository<Person, Long> {
     def List<Person> findByLastName(String lastName)
