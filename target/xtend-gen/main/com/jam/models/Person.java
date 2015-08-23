@@ -24,25 +24,21 @@ import org.eclipse.xtext.xbase.lib.util.ToStringBuilder;
 @DiscriminatorColumn(name = "person_type", discriminatorType = DiscriminatorType.STRING)
 @Table(name = "person")
 @ToString
+@Accessors
 @SuppressWarnings("all")
 public class Person implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
-  @Accessors
   private long id;
   
-  @Accessors
   private String firstName;
   
-  @Accessors
   private String lastName;
   
-  @Accessors
   private String email;
   
   @OneToOne(cascade = CascadeType.ALL)
   @JoinColumn(name = "ADDRESS_ID")
-  @Accessors
   private Address address;
   
   public Person() {

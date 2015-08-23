@@ -6,7 +6,6 @@ import com.jam.models.Employee;
 import com.jam.models.EmployeeRepository;
 import com.jam.models.Person;
 import com.jam.models.PersonRepository;
-import com.jam.templates.HelloFonta;
 import java.util.List;
 import org.eclipse.xtext.xbase.lib.ObjectExtensions;
 import org.eclipse.xtext.xbase.lib.Procedures.Procedure1;
@@ -30,13 +29,6 @@ public class SampleController {
   
   @Autowired
   private AddressRepository addressRepo;
-  
-  @RequestMapping("/")
-  @ResponseBody
-  public String home() {
-    HelloFonta _helloFonta = new HelloFonta();
-    return _helloFonta.content();
-  }
   
   @RequestMapping("/persons")
   @Transactional

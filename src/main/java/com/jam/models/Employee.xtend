@@ -81,14 +81,13 @@ class EmployeeService implements BaseService<EmployeeDTO, Employee>{
     override findById(Long id) {
        Optional.ofNullable(employeeRepo.findOne(id))
     }
-    override update(EmployeeDTO person) {
-        var persisted = findById(person.id).orElseThrow
-            [new Exception("Person id "+person.id + "not found")]
+    override update(EmployeeDTO employee) {
+        var persisted = findById(employee.id).orElseThrow
+            [new EmployeeNotFoundException(employee.id)]
         
-        persisted.firstName = person.firstName
-        persisted.lastName = person.lastName
-        persisted.email = person.email
-        persisted.address = person.address.toEntity
+        persisted.firstName = employee.firstName
+        persisted.lastName = employee.lastName
+        persisted.email = employee.email
         return persisted
     }
 }

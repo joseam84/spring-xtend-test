@@ -22,11 +22,7 @@ class SampleController {
 	@Autowired PersonRepository personRepo
 	@Autowired EmployeeRepository employeeRepo
 	@Autowired AddressRepository addressRepo
-	@RequestMapping("/")
-	@ResponseBody
-	def String home(){
-		new HelloFonta().content
-	}
+	
 	@RequestMapping("/persons")
 	@Transactional
 	def String testPersons(){

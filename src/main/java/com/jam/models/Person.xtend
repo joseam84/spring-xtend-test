@@ -66,7 +66,7 @@ class PersonService implements BaseService<PersonDTO,Person>{
         	firstName = persondata.firstName
         	lastName = persondata.lastName
         	email = persondata.email
-        	address = persondata.address.toEntity
+        	address = persondata.address.toEntity?:address
         ])
     }
     override delete(Long id) {
@@ -82,7 +82,7 @@ class PersonService implements BaseService<PersonDTO,Person>{
     }
     override update(PersonDTO person) {
         var persisted = findById(person.id).orElseThrow
-            [new Exception("Person id "+person.id + "not found")]
+            [new PersonNotFoundException(person.id)]
         
         persisted.firstName = person.firstName
         persisted.lastName = person.lastName
