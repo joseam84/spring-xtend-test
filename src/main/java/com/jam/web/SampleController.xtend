@@ -23,33 +23,33 @@ class SampleController {
 	@Autowired EmployeeRepository employeeRepo
 	@Autowired AddressRepository addressRepo
 	
-	@RequestMapping("/persons")
-	@Transactional
-	def String testPersons(){
-	    val angel = new Person("Angel","Fonta")
-		angel.address = new Address("456 E Main St.","","Cacolina","PR","00929","US")
-		personRepo.save(angel)
-		personRepo.findByLastName("Fonta").toString
-	}	
-	@RequestMapping("/employees")
-	@Transactional
-	def String testEmployees(){
-		employeeRepo.save(new Employee() => [
-			firstName = "Jose"
-			lastName = "Matos"
-			email = "j@gmail.com"
-			employeeNumber = "12345"
-			address = new Address() => [
-				addressLine1 = "456 Main St."
-				addressLine2 = "Urb Mirador Bairoa"
-				city = "Caguas"
-				zipCode = "00727"
-				state = "PR"
-				country = "US"
-			]
-		])
-		employeeRepo.findByLastName("Matos").toString
-	}	
+//	@RequestMapping("/persons")
+//	@Transactional
+//	def String testPersons(){
+//	    val angel = new Person("Angel","Fonta")
+//		angel.address = new Address("456 E Main St.","","Cacolina","PR","00929","US")
+//		personRepo.save(angel)
+//		personRepo.findByLastName("Fonta").toString
+//	}	
+//	@RequestMapping("/employees")
+//	@Transactional
+//	def String testEmployees(){
+//		employeeRepo.save(new Employee() => [
+//			firstName = "Jose"
+//			lastName = "Matos"
+//			email = "j@gmail.com"
+//			employeeNumber = "12345"
+//			address = new Address() => [
+//				addressLine1 = "456 Main St."
+//				addressLine2 = "Urb Mirador Bairoa"
+//				city = "Caguas"
+//				zipCode = "00727"
+//				state = "PR"
+//				country = "US"
+//			]
+//		])
+//		employeeRepo.findByLastName("Matos").toString
+//	}	
 	@RequestMapping("/addresses")
     @Transactional
     def String testAddresses(){
