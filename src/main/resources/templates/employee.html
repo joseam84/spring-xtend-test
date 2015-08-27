@@ -2,12 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml" 
       xmlns:th="http://www.thymeleaf.org" 
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Insert title here</title>
-</head>
+<head th:include="fragment :: imports"></head>
 <body>
- <div th:text="${employee.firstName} +' '+ ${employee.lastName}"></div>
- <table>
+  <nav th:include="fragment :: header"></nav>
+  <div th:text="${employee.firstName} +' '+ ${employee.lastName}"></div>
+  <table>
       <tbody>
         <tr th:each="task:${employee.tasks}">
           <td th:text="${task.content}"> This is content</td>
