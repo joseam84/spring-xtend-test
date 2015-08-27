@@ -57,13 +57,15 @@ class TaskExtensions{
 @Service
 class TaskService implements BaseService<TaskDTO,Task>{
     @Autowired TaskRepository taskRepo
-    @Autowired EmployeeRepository empRepo
-    @Autowired TopicRepository topicRepo
+    @Autowired EmployeeService empRepo
+    @Autowired TopicService topicRepo
     override create(TaskDTO tdto) {
         taskRepo.save(new Task() => [
-            topic    = topicRepo.findOne(tdto.topicId)
+            topic    = topicRepo.findById(tdto.topicId)
+                        .orElseThrow[new TopicNotFoundException(id)]
             content  = tdto.content
-            employee = empRepo.findOne(tdto.employeeId)])
+            employee = empRepo.findById(tdto.employeeId)
+                        .orElseThrow[new EmployeeNotFoundException(id)]])
     }
     override delete(Long id) {
         var toDelete = taskRepo.findOne(id)

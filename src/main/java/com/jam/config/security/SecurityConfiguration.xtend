@@ -16,7 +16,7 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     def void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         auth
             .inMemoryAuthentication()
-                .withUser("user").password("password").roles("ADMIN","API");
+                .withUser("user").password("password").roles("","ADMIN","API");
     }
     @Configuration
     @Order(1)
@@ -33,6 +33,16 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Configuration
     @Order(2)
+    static class H2ConsoleSecurityConfiguration extends WebSecurityConfigurerAdapter {
+        override void configure(HttpSecurity http) throws Exception {
+            http
+                .csrf.disable
+                .authorizeRequests
+                .antMatchers("/h2-console/**").permitAll   
+        }
+    }
+    @Configuration
+    @Order(3)
     static class ViewsSecurityConfiguration extends WebSecurityConfigurerAdapter {
        
         override void configure(HttpSecurity http) throws Exception {
