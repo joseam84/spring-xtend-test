@@ -4,7 +4,7 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head th:include="fragment :: imports"></head>
 <body>
-  <nav th:include="fragment :: header"></nav>
+  <nav th:include="fragment :: header('employee')"></nav>
   <div th:text="${employee.firstName} +' '+ ${employee.lastName}"></div>
   <table>
       <tbody>

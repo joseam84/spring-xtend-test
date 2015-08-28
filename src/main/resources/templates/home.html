@@ -1,9 +1,8 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-    <head>
-        <title>Spring Security Example</title>
-    </head>
+    <head th:include="fragment :: imports"></head>
     <body>
+        <nav th:include="fragment :: header('home')"></nav>
         <h1>Welcome!</h1>
         <p>Hello <a th:href="@{/hello}" th:text="${name}"></a></p>
     </body>
