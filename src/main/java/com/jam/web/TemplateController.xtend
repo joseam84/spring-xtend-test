@@ -22,6 +22,12 @@ class TemplateController {
     def hello(){ "hello"}
     @RequestMapping("/login") def login(){ "login" }
     
+    
+    @RequestMapping(path = "/subordinates") 
+    def subordinate(Model model){ 
+        model.addAttribute("subordinates", employeeRepo)
+        "subordinates"
+    }
     @RequestMapping(path = "/employees") 
     def employees(Model model){ 
         model.addAttribute("employees", employeeRepo.findAll)

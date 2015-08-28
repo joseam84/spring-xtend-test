@@ -4,12 +4,12 @@
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head th:include="fragment :: imports"></head>
 <body>
-    <nav th:include="fragment :: header('employee')"></nav>
+    <nav th:include="fragment :: header('subordinates')"></nav>
     <table>
       <tbody>
-        <tr th:each="employee:${employees}">
-          <td><a th:href="@{/employee/} + ${employee.id}" 
-                 th:text="${employee.firstName} +' '+ ${employee.lastName}"></a></td>
+        <tr th:each="subordinate : ${subordinates}">
+          <td><a th:href="@{/employee/} + ${subordinate.id}" 
+                 th:text="${subordinate.firstName} +' '+ ${subordinate.lastName}"></a></td>
         </tr>
       </tbody>
     </table>

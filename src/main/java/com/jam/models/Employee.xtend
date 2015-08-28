@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired
 import java.util.Optional
 import javax.persistence.OneToMany
 import java.util.Set
+import javax.persistence.ManyToOne
 
 @Entity
 @Table(name ="employee")
@@ -22,8 +23,12 @@ import java.util.Set
 @Accessors
 class Employee extends Person {
     private String employeeNumber
+    @ManyToOne(cascade=ALL)
+    private Employee manager
     @OneToMany(targetEntity=Task, cascade=ALL, mappedBy="employee")
     private Set<Task> tasks
+    @OneToMany(targetEntity=Employee, cascade=ALL, mappedBy="manager")
+    private Set<Task> subordinates
     new(){}
     new(String firstName, String lastName) {
         super(firstName, lastName)

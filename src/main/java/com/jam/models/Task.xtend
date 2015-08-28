@@ -21,7 +21,7 @@ import java.time.LocalDateTime
 @Accessors
 class Task extends Timestamp{
     @ManyToOne(cascade=ALL)
-    @JoinColumn(name="CUST_ID", nullable=false)
+    @JoinColumn(name="EMPLOYEE_ID", nullable=false)
     var Employee employee
     @ManyToOne(cascade=ALL)
     var Topic topic

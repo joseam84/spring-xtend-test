@@ -5,10 +5,10 @@
 <head th:include="fragment :: imports"></head>
 <body>
   <nav th:include="fragment :: header('employee')"></nav>
-  <div th:text="${employee.firstName} +' '+ ${employee.lastName}"></div>
-  <table>
+  <div th:text="${employee.firstName} +' '+ ${employee.lastName}" class="h3"></div>
+  <table class="table table-striped">
       <tbody>
-        <tr th:each="task:${employee.tasks}">
+        <tr th:each="task : ${employee.tasks}">
           <td th:text="${task.content}"> This is content</td>
           <td th:text="${task.updatedAt}">01-01-2015</td>
         </tr>
