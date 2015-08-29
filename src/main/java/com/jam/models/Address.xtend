@@ -13,16 +13,17 @@ import org.springframework.data.repository.CrudRepository
 @Entity
 @Table(name ="address")
 @ToString
+@Accessors
 class Address {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    @Accessors private String id
-    @Accessors private String addressLine1
-    @Accessors private String addressLine2
-    @Accessors private String city
-    @Accessors private String state
-    @Accessors private String zipCode
-    @Accessors private String country 
+    private String id
+    private String addressLine1
+    private String addressLine2
+    private String city
+    private String state
+    private String zipCode
+    private String country 
     new(){}
     new(String addressLine1,String  addressLine2, String city, 
         String state, String zipCode, String country){
@@ -34,15 +35,15 @@ class Address {
         this.country = country
     }
 }
-
+@Accessors
 class AddressDTO{
-   @Accessors String id
-   @Accessors String addressLine1
-   @Accessors String addressLine2
-   @Accessors String city
-   @Accessors String state
-   @Accessors String zipCode
-   @Accessors String country 
+   String id
+   String addressLine1
+   String addressLine2
+   String city
+   String state
+   String zipCode
+   String country 
    new(){}
     
 }
