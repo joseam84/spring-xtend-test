@@ -24,7 +24,7 @@ class EmployeeController {
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     def EmployeeDTO create(@RequestBody @Valid EmployeeDTO EmployeeDTO){
-o        service.create(EmployeeDTO).toDTO           
+        service.create(EmployeeDTO).toDTO           
     }
     
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
