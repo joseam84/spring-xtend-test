@@ -6,7 +6,6 @@ import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
-import org.springframework.security.core.userdetails.UserDetailsService
 
 @Configuration
 class SecurityConfiguration extends WebSecurityConfigurerAdapter {
@@ -31,21 +30,6 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     }
     @Configuration
     @Order(2)
-    static class ViewsSecurityConfiguration extends WebSecurityConfigurerAdapter {
-        override void configure(HttpSecurity http) throws Exception {
-            http
-                .authorizeRequests
-                    .antMatchers("/", "/home","/webjars/**").permitAll
-                    .anyRequest.authenticated
-                    .and
-                .formLogin
-                    .loginPage("/login").permitAll
-                    .and
-                .logout.permitAll
-        }
-    }
-    @Configuration
-    @Order(3)
     /**
      * The H2 configuration need to disable the frames and the csrf.
      */
@@ -59,6 +43,20 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .headers.frameOptions.disable   
         }
     }
-   
+    @Configuration
+    @Order(3)
+    static class ViewsSecurityConfiguration extends WebSecurityConfigurerAdapter {
+        override void configure(HttpSecurity http) throws Exception {
+            http
+                .authorizeRequests
+                    .antMatchers("/", "/home","/webjars/**").permitAll
+                    .anyRequest.authenticated
+                    .and
+                .formLogin
+                    .loginPage("/login").permitAll
+                    .and
+                .logout.permitAll
+        }
+    } 
 }
 

@@ -1,16 +1,15 @@
 package com.jam.models
 
+import java.util.List
+import java.util.Optional
 import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
 import javax.persistence.Table
 import org.eclipse.xtend.lib.annotations.Accessors
-import java.util.List
-import org.springframework.data.repository.CrudRepository
-import java.util.Optional
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
-import static extension com.jam.models.TopicExtensions.*
 
 @Entity
 @Table(name="topic")
