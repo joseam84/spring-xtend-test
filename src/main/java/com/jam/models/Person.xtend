@@ -58,7 +58,7 @@ interface PersonRepository extends CrudRepository<Person, Long> {
     def List<Person> findByLastName(String lastName)
 }
 @Service
-class PersonService implements BaseService<PersonDTO,Person>{
+class PersonService implements BaseService<PersonDTO, Person, Long>{
     
     @Autowired PersonRepository personRepo
     override create(PersonDTO persondata) {

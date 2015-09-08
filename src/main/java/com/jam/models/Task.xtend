@@ -55,7 +55,7 @@ class TaskExtensions{
 }
 
 @Service
-class TaskService implements BaseService<TaskDTO,Task>{
+class TaskService implements BaseService<TaskDTO,Task, Long>{
     @Autowired TaskRepository taskRepo
     @Autowired EmployeeService empRepo
     @Autowired TopicService topicRepo

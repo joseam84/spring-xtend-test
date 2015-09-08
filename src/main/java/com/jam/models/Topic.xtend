@@ -41,7 +41,7 @@ interface TopicRepository extends CrudRepository<Topic, Long>{
     def List<Topic> findByName(Topic topic)
 }
 @Service
-class TopicService implements BaseService<TopicDTO,Topic>{
+class TopicService implements BaseService<TopicDTO,Topic, Long>{
     @Autowired TopicRepository topicRepo
     override create(TopicDTO tdto) {
         topicRepo.save(new Topic(tdto.name))

@@ -10,6 +10,12 @@ import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.data.repository.CrudRepository
 import javax.persistence.OneToMany
 import java.util.List
+import com.jam.models.BaseService
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.security.core.userdetails.UsernameNotFoundException
+import java.util.Optional
+import org.springframework.stereotype.Service
+
 /**
  * User contains the information necessary for Spring Security to determine credentials
  */
@@ -42,6 +48,43 @@ class User implements UserDetails{
     
 }
 
+@Accessors
+class UserDTO{
+    var String username
+    var String password
+}
+
+@Service
+class UserService implements BaseService<UserDTO, User, String>{
+    @Autowired UserRepository userRepo
+    override create(UserDTO person) {
+        throw new UnsupportedOperationException("TODO: auto-generated method stub")
+    }
+    
+    override delete(Long id) {
+        throw new UnsupportedOperationException("TODO: auto-generated method stub")
+    }
+    
+    override findAll() {
+        throw new UnsupportedOperationException("TODO: auto-generated method stub")
+    }
+    
+    override findById(String username) {
+         Optional.ofNullable(userRepo.findByUsername(username))
+    }
+    
+    override update(UserDTO todo) {
+        throw new UnsupportedOperationException("TODO: auto-generated method stub")
+    }
+    
+}
+
 interface UserRepository extends CrudRepository<User, String>{
     def User findByUsername(String username)
+}
+
+class UserNotFoundException extends Exception{
+    new(String id) {
+        super("User with username " + id + " not found.")
+    }
 }

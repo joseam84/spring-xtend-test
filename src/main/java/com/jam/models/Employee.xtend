@@ -64,7 +64,7 @@ interface EmployeeRepository extends CrudRepository<Employee, Long> {
 }
 
 @Service
-class EmployeeService implements BaseService<EmployeeDTO, Employee>{
+class EmployeeService implements BaseService<EmployeeDTO, Employee, Long>{
     
     @Autowired EmployeeRepository employeeRepo
     override create(EmployeeDTO employeeData) {
