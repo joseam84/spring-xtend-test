@@ -22,6 +22,7 @@ import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
 
 import static extension com.jam.models.AddressExtensions.*
+import com.jam.models.security.User
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -32,10 +33,13 @@ import static extension com.jam.models.AddressExtensions.*
 class Person implements Serializable {
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
-    private String firstName;
-    private String lastName;
-    private String email;
+    private long id
+    private String firstName
+    private String lastName
+    private String email
+    @OneToOne(cascade = CascadeType.ALL) 
+    @JoinColumn(name="USER_ID") 
+    private User userCredentials
     @OneToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name="ADDRESS_ID") 
     private Address address;

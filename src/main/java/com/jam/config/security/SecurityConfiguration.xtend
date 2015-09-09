@@ -6,9 +6,10 @@ import org.springframework.core.annotation.Order
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 
-@Configuration
-class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+@EnableWebSecurity
+class SecurityConfiguration {
     @Autowired
     private AppUserDetailService userService;
     @Autowired
@@ -16,11 +17,27 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
         auth.userDetailsService(userService)
     }
     @Configuration
+    @Order(2)
+    static class ViewsSecurityConfiguration extends WebSecurityConfigurerAdapter {
+        override void configure(HttpSecurity http) throws Exception {
+            http
+                .authorizeRequests
+                    .antMatchers("/", "/home","/webjars/**", "/h2-console/**").permitAll
+                    .anyRequest.authenticated
+                    .and
+                .formLogin
+                    .loginPage("/login").permitAll
+                    .and
+                .logout.permitAll
+            http.csrf.disable
+            http.headers.frameOptions.disable
+        }
+    } 
+    @Configuration
     @Order(1)
     static class ApiWebSecurityConfigurationAdapter extends WebSecurityConfigurerAdapter {
         override void configure(HttpSecurity http) throws Exception {
-            http
-                .csrf.disable
+            http.csrf.disable
                 .antMatcher("/api/**")
                 .authorizeRequests()
                     .anyRequest().hasAnyRole("ADMIN", "API")
@@ -28,35 +45,21 @@ class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .httpBasic();
         }
     }
-    @Configuration
-    @Order(2)
-    /**
-     * The H2 configuration need to disable the frames and the csrf.
-     */
-    static class H2ConsoleSecurityConfiguration extends WebSecurityConfigurerAdapter {
-        override void configure(HttpSecurity http) throws Exception {
-            http
-                .csrf.disable
-                .authorizeRequests
-                .antMatchers("/h2-console/**").permitAll
-                .and
-                .headers.frameOptions.disable   
-        }
-    }
-    @Configuration
-    @Order(3)
-    static class ViewsSecurityConfiguration extends WebSecurityConfigurerAdapter {
-        override void configure(HttpSecurity http) throws Exception {
-            http
-                .authorizeRequests
-                    .antMatchers("/", "/home","/webjars/**").permitAll
-                    .anyRequest.authenticated
-                    .and
-                .formLogin
-                    .loginPage("/login").permitAll
-                    .and
-                .logout.permitAll
-        }
-    } 
+    
+// This configuration was problematic because the csrf protection is overshadowed by higher priority configurations.    
+//    @Configuration
+//    @Order(3)
+//    /**
+//     * The H2 configuration need to disable the frames and the csrf.
+//     */
+//    static class H2ConsoleSecurityConfiguration extends WebSecurityConfigurerAdapter {
+//        override void configure(HttpSecurity http) throws Exception {
+//            http.authorizeRequests.antMatchers("/h2-console/**").permitAll
+//            http.csrf.disable
+//            http.headers.frameOptions.disable
+//                
+//        }
+//    }
+    
 }
 

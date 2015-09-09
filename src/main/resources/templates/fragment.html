@@ -12,6 +12,7 @@
 <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.1/jquery.min.js"
 	th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
 </head>
+
 <div th:fragment="header(page)">
 	<nav class="navbar navbar-default">
 		<div class="container">
@@ -29,6 +30,7 @@
 				    <li th:class="${page == 'subordinates'} ? 'active' : null"><a
                         th:href="@{/subordinates}">Subordinates</a></li>
 				</ul>
+				<p sec:authorize="isAuthenticated()" class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
 			</div>
 		</div>
 	</nav>

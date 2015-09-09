@@ -7,6 +7,8 @@ import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
 import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.security.core.context.SecurityContextHolder
+import java.security.Principal
 
 @Controller
 class TemplateController {
@@ -14,7 +16,10 @@ class TemplateController {
     @RequestMapping("/")      
     def index(){ "home" }
     @RequestMapping("/home")  
-    def home(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model){
+    def home(@RequestParam(value="name", required=false, defaultValue="World") 
+        String name, Model model, Principal principal){
+        var auth = principal
+        println(auth)   
         model.addAttribute("name", name) 
         "home" 
     }
