@@ -60,6 +60,7 @@ class PersonDTO{
 }
 interface PersonRepository extends CrudRepository<Person, Long> {
     def List<Person> findByLastName(String lastName)
+    def List<Person> findByUserCredentialsUsername(String username)
 }
 @Service
 class PersonService implements BaseService<PersonDTO, Person, Long>{
@@ -83,6 +84,9 @@ class PersonService implements BaseService<PersonDTO, Person, Long>{
     }
     override findById(Long id) {
        Optional.ofNullable(personRepo.findOne(id))
+    }
+    def findByUsername(String username) {
+       Optional.ofNullable(personRepo.findByUserCredentialsUsername(username))
     }
     override update(PersonDTO person) {
         var persisted = findById(person.id).orElseThrow

@@ -30,7 +30,16 @@
 				    <li th:class="${page == 'subordinates'} ? 'active' : null"><a
                         th:href="@{/subordinates}">Subordinates</a></li>
 				</ul>
-				<p sec:authorize="isAuthenticated()" class="navbar-text navbar-right">Signed in as <a href="#" class="navbar-link">Mark Otto</a></p>
+				<p th:if="${#httpServletRequest.remoteUser != null}" 
+				   class="navbar-text navbar-right">Signed in as 
+				   <a th:inline="text" 
+				      th:href="@{/employee/} + ${#httpServletRequest.remoteUser}" 
+				      class="navbar-link">[[${#httpServletRequest.remoteUser}]]</a>
+				</p>
+				<p th:if="${#httpServletRequest.remoteUser == null}" 
+                   class="navbar-text navbar-right"> 
+                   <a th:href="@{/login}" class="navbar-link">Log in</a>
+                </p>
 			</div>
 		</div>
 	</nav>

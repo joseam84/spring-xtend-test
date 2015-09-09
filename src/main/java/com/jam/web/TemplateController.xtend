@@ -1,18 +1,18 @@
 package com.jam.web
 
-import com.jam.models.EmployeeRepository
+import com.jam.models.EmployeeService
+import java.security.Principal
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RequestParam
-import org.springframework.web.bind.annotation.PathVariable
-import org.springframework.security.core.context.SecurityContextHolder
-import java.security.Principal
+import com.jam.models.EmployeeNotFoundException
 
 @Controller
 class TemplateController {
-    @Autowired EmployeeRepository employeeRepo
+    @Autowired EmployeeService employeeService
     @RequestMapping("/")      
     def index(){ "home" }
     @RequestMapping("/home")  
@@ -30,17 +30,18 @@ class TemplateController {
     
     @RequestMapping(path = "/subordinates") 
     def subordinate(Model model){ 
-        model.addAttribute("subordinates", employeeRepo)
+        model.addAttribute("subordinates", employeeService)
         "subordinates"
     }
     @RequestMapping(path = "/employees") 
     def employees(Model model){ 
-        model.addAttribute("employees", employeeRepo.findAll)
+        model.addAttribute("employees", employeeService.findAll)
         "employees"
     }
-    @RequestMapping(path = "/employee/{id}") 
-    def employee(@PathVariable("id") Long id, Model model){ 
-        var employee = employeeRepo.findOne(id)
+    @RequestMapping(path = "/employee/{username}") 
+    def employee(@PathVariable("username") String username, Model model){ 
+        var employee = employeeService.findByUsername(username)
+                      .orElseThrow[new EmployeeNotFoundException(username)]
         model.addAttribute("employee", employee)
         "employee"
     }

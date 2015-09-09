@@ -61,6 +61,7 @@ class EmployeeExtension {
 } 
 interface EmployeeRepository extends CrudRepository<Employee, Long> {
     def List<Employee> findByLastName(String lastName)
+    def Person findByUserCredentialsUsername(String username)
 }
 
 @Service
@@ -95,10 +96,16 @@ class EmployeeService implements BaseService<EmployeeDTO, Employee, Long>{
         persisted.email = employee.email
         return persisted
     }
+    def findByUsername(String username) {
+       Optional.ofNullable(employeeRepo.findByUserCredentialsUsername(username))
+    }
 }
 
 class EmployeeNotFoundException extends Exception{
     new(Long id) {
         super("Employee id " + id + " not found.")
+    }
+    new(String username) {
+        super("Employee username " + username + " not found.")
     }
 }
