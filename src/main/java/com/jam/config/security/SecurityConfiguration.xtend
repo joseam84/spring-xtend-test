@@ -2,7 +2,6 @@ package com.jam.config.security
 
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.autoconfigure.security.SecurityProperties
-import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.core.Ordered
 import org.springframework.core.annotation.Order
@@ -13,16 +12,6 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 
 @Configuration
 class SecurityConfiguration {
-
-    @Bean
-    def WebSecurityConfigurerAdapter apiWebSecurityConfiguration() {
-        return new ApiWebSecurityConfiguration()
-    }
-
-    @Bean
-    def WebSecurityConfigurerAdapter viewsSecurityConfiguration() {
-        return new ViewsSecurityConfiguration()
-    }
     
     @Configuration
     @Order(Ordered.HIGHEST_PRECEDENCE)
@@ -36,9 +25,9 @@ class SecurityConfiguration {
             auth.userDetailsService(userService);
         }
     }
-
+    @Configuration
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER - 1)
-    private static class ApiWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
+    public static class ApiWebSecurityConfiguration extends WebSecurityConfigurerAdapter {
         override void configure(HttpSecurity http) throws Exception {
             val api = http.antMatcher("/api/**")
             api.csrf.disable
@@ -47,9 +36,9 @@ class SecurityConfiguration {
 
         }
     }
-
+    @Configuration
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
-    private static class ViewsSecurityConfiguration extends WebSecurityConfigurerAdapter {
+    public static class ViewsSecurityConfiguration extends WebSecurityConfigurerAdapter {
         override void configure(HttpSecurity http) throws Exception {
             http
                 .authorizeRequests
