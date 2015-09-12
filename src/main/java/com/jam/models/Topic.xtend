@@ -10,6 +10,7 @@ import org.eclipse.xtend.lib.annotations.Accessors
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.data.repository.CrudRepository
 import org.springframework.stereotype.Service
+import javax.persistence.ManyToOne
 
 @Entity
 @Table(name="topic")
@@ -18,6 +19,9 @@ class Topic {
     @Id @GeneratedValue(strategy=AUTO)
     var long id;
     var String name
+    var String description
+    @ManyToOne(cascade=ALL)
+    var TopicGroup group
     new (String name){
       this.name = name  
     }
@@ -27,7 +31,9 @@ class Topic {
 @Accessors
 class TopicDTO{
     var Long id
+    var Long topicGroupId
     var String name
+    var String description
 }
 class TopicExtensions{
     def static TopicDTO toDTO(Topic entity) {
@@ -38,10 +44,11 @@ class TopicExtensions{
     }
 }
 interface TopicRepository extends CrudRepository<Topic, Long>{
-    def List<Topic> findByName(Topic topic)
+    def List<Topic> findByName(String name)
+    def List<Topic> findByGroup(TopicGroup group)
 }
 @Service
-class TopicService implements BaseService<TopicDTO,Topic, Long>{
+class TopicService implements BaseService<TopicDTO, Topic, Long>{
     @Autowired TopicRepository topicRepo
     override create(TopicDTO tdto) {
         topicRepo.save(new Topic(tdto.name))

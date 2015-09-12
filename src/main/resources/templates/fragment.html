@@ -11,6 +11,7 @@
 	rel="stylesheet" media="screen" />
 <script src="http://cdn.jsdelivr.net/webjars/jquery/2.1.1/jquery.min.js"
 	th:src="@{/webjars/jquery/2.1.1/jquery.min.js}"></script>
+<script></script>
 </head>
 
 <div th:fragment="header(page)">
@@ -29,6 +30,8 @@
 						th:href="@{/employees}">Employees</a></li>
 				    <li th:class="${page == 'subordinates'} ? 'active' : null"><a
                         th:href="@{/subordinates}">Subordinates</a></li>
+                    <li th:class="${page == 'topics'} ? 'active' : null"><a
+                        th:href="@{/topics}">Topics</a></li>
 				</ul>
 				<p th:if="${#httpServletRequest.remoteUser != null}" 
 				   class="navbar-text navbar-right">Signed in as 
@@ -36,10 +39,16 @@
 				      th:href="@{/employee/} + ${#httpServletRequest.remoteUser}" 
 				      class="navbar-link">[[${#httpServletRequest.remoteUser}]]</a>
 				</p>
+				<form th:if="${#httpServletRequest.remoteUser != null}" 
+				   th:action="@{/logout}" method="post"
+                   class="navbar-form navbar-right"> 
+                   <button type="submit" class="btn btn-default">Logout</button>
+                </form>
 				<p th:if="${#httpServletRequest.remoteUser == null}" 
                    class="navbar-text navbar-right"> 
                    <a th:href="@{/login}" class="navbar-link">Log in</a>
                 </p>
+                
 			</div>
 		</div>
 	</nav>

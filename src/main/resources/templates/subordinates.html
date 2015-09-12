@@ -8,7 +8,7 @@
     <table>
       <tbody>
         <tr th:each="subordinate : ${subordinates}">
-          <td><a th:href="@{/employee/} + ${subordinate.id}" 
+          <td><a th:href="@{/employee/} + ${subordinate.username}" 
                  th:text="${subordinate.firstName} +' '+ ${subordinate.lastName}"></a></td>
         </tr>
       </tbody>

@@ -48,7 +48,9 @@ class SecurityConfiguration {
                 .formLogin
                     .loginPage("/login").permitAll
                     .and
-                .logout.permitAll
+                .logout
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/home")
         }
     } 
 }

@@ -28,13 +28,16 @@ class Employee extends Person {
     @OneToMany(targetEntity=Task, cascade=ALL, mappedBy="employee")
     private Set<Task> tasks
     @OneToMany(targetEntity=Employee, cascade=ALL, mappedBy="manager")
-    private Set<Task> subordinates
+    private Set<Employee> subordinates
+    @OneToMany(targetEntity=TopicGroup, cascade=ALL, mappedBy="creator")
+    private Set<TopicGroup> topicGroups
     new(){}
     new(String firstName, String lastName) {
         super(firstName, lastName)
     }
-    
-    
+    def String getUsername(){
+        this.userCredentials.username
+    }
 }
 
 class EmployeeDTO extends PersonDTO{
@@ -61,7 +64,7 @@ class EmployeeExtension {
 } 
 interface EmployeeRepository extends CrudRepository<Employee, Long> {
     def List<Employee> findByLastName(String lastName)
-    def Person findByUserCredentialsUsername(String username)
+    def Employee findByUserCredentialsUsername(String username)
 }
 
 @Service
