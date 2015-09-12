@@ -34,6 +34,7 @@ class TopicDTO{
     var Long topicGroupId
     var String name
     var String description
+    new() { }
 }
 class TopicExtensions{
     def static TopicDTO toDTO(Topic entity) {
@@ -50,6 +51,7 @@ interface TopicRepository extends CrudRepository<Topic, Long>{
 @Service
 class TopicService implements BaseService<TopicDTO, Topic, Long>{
     @Autowired TopicRepository topicRepo
+    @Autowired TopicGroupRepository topicGroupRepo
     override create(TopicDTO tdto) {
         topicRepo.save(new Topic(tdto.name))
     }
@@ -58,6 +60,16 @@ class TopicService implements BaseService<TopicDTO, Topic, Long>{
         topicRepo.delete(id)
         toDelete
     }
+    
+    def addToTopicGroup(TopicDTO topic){
+        val topicGroup = topicGroupRepo.findOne(topic.topicGroupId)
+        val topicToAdd = new Topic() => 
+            [name = topic.name 
+             group = topicGroup
+             description = topic.description]
+        topicRepo.save(topicToAdd)
+    }
+    
     override findAll() {
         topicRepo.findAll().toList
     }
