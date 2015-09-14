@@ -21,9 +21,9 @@ class TopicGroup {
     var long id;
     var String name
     var String description
-    @ManyToOne(cascade=ALL)
+    @ManyToOne
     var Employee creator
-    @OneToMany(targetEntity=Topic, cascade=ALL, mappedBy="group")
+    @OneToMany(targetEntity=Topic, mappedBy="group")
     var List<Topic> topics
     new(){}
 }

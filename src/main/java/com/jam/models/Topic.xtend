@@ -20,7 +20,7 @@ class Topic {
     var long id;
     var String name
     var String description
-    @ManyToOne(cascade=ALL)
+    @ManyToOne
     var TopicGroup group
     new (String name){
       this.name = name  
@@ -82,7 +82,9 @@ class TopicService implements BaseService<TopicDTO, Topic, Long>{
         persisted.name = tdto.name
         return persisted
       
-    }  
+    }
+    
+   
 }
 class TopicNotFoundException extends Exception{
     new(Long id) {

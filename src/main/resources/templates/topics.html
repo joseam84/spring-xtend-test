@@ -12,7 +12,13 @@
 	   
 	      <tbody>
 	        <tr th:each="topic:${topicgroup.topics}">
-	          <td><div th:text="${topic.name}">Topic 1</div></td>
+	          <td>
+	          <form th:action="@{/remove-topic}" method="post" th:object="${topicToRemove}">
+	           <span th:text="${topic.name}">Topic 1</span>
+	               <button class="btn pull-right" name="id" id="id" th:value="${topic.id}" type="submit">
+	               <span class="glyphicon glyphicon-minus"></span></button>
+	           </form>
+	          </td>
 	        </tr>
 	        <tr>
                <td>

@@ -23,13 +23,13 @@ import javax.persistence.ManyToOne
 @Accessors
 class Employee extends Person {
     private String employeeNumber
-    @ManyToOne(cascade=ALL)
+    @ManyToOne
     private Employee manager
-    @OneToMany(targetEntity=Task, cascade=ALL, mappedBy="employee")
+    @OneToMany(targetEntity=Task, mappedBy="employee")
     private Set<Task> tasks
-    @OneToMany(targetEntity=Employee, cascade=ALL, mappedBy="manager")
+    @OneToMany(targetEntity=Employee, mappedBy="manager")
     private Set<Employee> subordinates
-    @OneToMany(targetEntity=TopicGroup, cascade=ALL, mappedBy="creator")
+    @OneToMany(targetEntity=TopicGroup, mappedBy="creator")
     private Set<TopicGroup> topicGroups
     new(){}
     new(String firstName, String lastName) {

@@ -40,7 +40,7 @@ class Person implements Serializable {
     @OneToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name="USER_ID") 
     private User userCredentials
-    @OneToOne(cascade = CascadeType.ALL) 
+    @OneToOne 
     @JoinColumn(name="ADDRESS_ID") 
     private Address address;
     new(){}

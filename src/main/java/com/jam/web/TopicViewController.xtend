@@ -30,10 +30,16 @@ public class TopicViewController {
         model.addAttribute("newTopic", new TopicDTO())
         "topics"
     }
-    // move to form controller
+    
     @RequestMapping(path = "/newtopic", method=POST) 
     def topicSubmit(@ModelAttribute TopicDTO newTopic, Model model){
         topicService.addToTopicGroup(newTopic)
+        "redirect:topics"
+    }
+    
+    @RequestMapping(path = "/remove-topic", method=POST) 
+    def topicRemove(@ModelAttribute TopicDTO topicToRemove){
+        topicService.delete(topicToRemove.id)
         "redirect:topics"
     }
 }
