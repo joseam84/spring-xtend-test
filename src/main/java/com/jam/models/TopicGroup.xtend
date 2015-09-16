@@ -33,6 +33,7 @@ class TopicGroupDTO{
     var Long id
     var String name
     var String description
+    var List<TopicDTO> topics
 }
 
 interface TopicGroupRepository extends CrudRepository<TopicGroup, Long>{
@@ -60,6 +61,7 @@ class TopicGroupService implements BaseService<TopicGroupDTO, TopicGroup, Long>{
     
     def findByCreator(Employee creator){
         Optional.ofNullable(topicRepo.findByCreator(creator))
+            .orElseThrow[new TopicGroupNotFoundException(creator.username + " group")]
     }
     override update(TopicGroupDTO tdto) {
         var persisted = findById(tdto.id).orElseThrow[new TopicNotFoundException(tdto.id)]

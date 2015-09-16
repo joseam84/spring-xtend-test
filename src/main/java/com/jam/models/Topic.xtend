@@ -25,7 +25,7 @@ class Topic {
     new (String name){
       this.name = name  
     }
-    new() { }
+    new() {}
 }
 
 @Accessors
@@ -34,7 +34,8 @@ class TopicDTO{
     var Long topicGroupId
     var String name
     var String description
-    new() { }
+    var List<Task> tasks
+    new(){}
 }
 class TopicExtensions{
     def static TopicDTO toDTO(Topic entity) {
@@ -48,6 +49,7 @@ interface TopicRepository extends CrudRepository<Topic, Long>{
     def List<Topic> findByName(String name)
     def List<Topic> findByGroup(TopicGroup group)
 }
+
 @Service
 class TopicService implements BaseService<TopicDTO, Topic, Long>{
     @Autowired TopicRepository topicRepo
@@ -84,7 +86,6 @@ class TopicService implements BaseService<TopicDTO, Topic, Long>{
       
     }
     
-   
 }
 class TopicNotFoundException extends Exception{
     new(Long id) {

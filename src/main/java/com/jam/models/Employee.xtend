@@ -101,6 +101,7 @@ class EmployeeService implements BaseService<EmployeeDTO, Employee, Long>{
     }
     def findByUsername(String username) {
        Optional.ofNullable(employeeRepo.findByUserCredentialsUsername(username))
+        .orElseThrow[new EmployeeNotFoundException(username)]
     }
 }
 

@@ -23,9 +23,7 @@ public class TopicViewController {
     @RequestMapping(path = "/topics") 
     def topics(Model model, Principal principal){
         val creator  = employeeService.findByUsername(principal.name) // Current user as Employee
-                        .orElseThrow[new EmployeeNotFoundException(principal.name)]
         val topicGroups =  topicGroupService.findByCreator(creator)
-                        .orElseThrow[new TopicGroupNotFoundException(creator.username + " group")]
         model.addAttribute("topicgroups", topicGroups)
         model.addAttribute("newTopic", new TopicDTO())
         "topics"

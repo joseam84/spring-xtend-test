@@ -36,3 +36,12 @@ INSERT INTO topic (name, description, group_id) VALUES ('Configuration', 'All co
 INSERT INTO topic (name, description, group_id) VALUES ('Meetings', 'All meetings','1');
 INSERT INTO topic (name, description, group_id) VALUES ('Support', 'Support to other co workers','1');
 INSERT INTO topic (name, description, group_id) VALUES ('Time lost', 'Hours wasted by looking at your phone','1');
+--Tasks
+INSERT INTO task(version, content, employee_id, topic_id) VALUES ('1', 'Time lost','3', '1');
+INSERT INTO task(version, content, employee_id, topic_id) VALUES ('1', 'Singing songs','3', '1');
+INSERT INTO task(version, content, employee_id, topic_id) VALUES ('1', 'Wasting life','3', '1');
+INSERT INTO task(version, content, employee_id, topic_id) VALUES ('1', 'Playing Cards','3', '2');
+INSERT INTO task(version, content, employee_id, topic_id) VALUES ('1', 'Twister','3', '2');
+INSERT INTO task(version, content, employee_id, topic_id) VALUES ('1', 'More Wasting life','3', '2');
+
+

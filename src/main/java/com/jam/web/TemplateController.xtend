@@ -30,8 +30,7 @@ class TemplateController {
     
     @RequestMapping(path = "/subordinates") 
     def subordinate(Model model, Principal principal){ 
-        var currentEmployee = employeeService.findByUsername(principal.name)
-                                .orElseThrow[new EmployeeNotFoundException(principal.name)] 
+        var currentEmployee = employeeService.findByUsername(principal.name) 
         model.addAttribute("subordinates", currentEmployee.subordinates)
         "subordinates"
     }
@@ -44,7 +43,6 @@ class TemplateController {
     @RequestMapping(path = "/employee/{username}") 
     def employee(@PathVariable("username") String username, Model model){ 
         var employee = employeeService.findByUsername(username)
-                      .orElseThrow[new EmployeeNotFoundException(username)]
         model.addAttribute("employee", employee)
         "employee"
     }

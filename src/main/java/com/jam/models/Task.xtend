@@ -41,6 +41,7 @@ class TaskDTO{
 interface TaskRepository extends CrudRepository<Task, Long>{
     def List<Task> findByEmployee(Employee e)
     def List<Task> findByTopic(Topic topic)
+    def List<Task> findByEmployeeAndTopic(Employee employee , Topic topic)
 }
 
 class TaskExtensions{
@@ -80,14 +81,18 @@ class TaskService implements BaseService<TaskDTO,Task, Long>{
     }
     override update(TaskDTO tdto) {
         var persisted = findById(tdto.id).orElseThrow
-            [new TaskNotFoundException(tdto.id)]
+            [new TaskNotFoundException(tdto.id.toString())]
         persisted.content = tdto.content
-        return persisted
-      
+        return persisted   
+    }
+    
+    def findEmployeeTasks(Employee employee){
+        Optional.ofNullable(taskRepo.findByEmployee(employee))
+            .orElseThrow[new TaskNotFoundException(employee.username)]
     }
 }
 class TaskNotFoundException extends Exception{
-    new(Long id) {
+     new(String id) {
         super("Task id " + id + " not found.")
     }
 }

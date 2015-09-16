@@ -32,6 +32,8 @@
                         th:href="@{/subordinates}">Subordinates</a></li>
                     <li th:class="${page == 'topics'} ? 'active' : null"><a
                         th:href="@{/topics}">Topics</a></li>
+                    <li th:class="${page == 'tasks'} ? 'active' : null"><a
+                        th:href="@{/tasks}">Tasks</a></li>
 				</ul>
 				<p th:if="${#httpServletRequest.remoteUser != null}" 
 				   class="navbar-text navbar-right">Signed in as 

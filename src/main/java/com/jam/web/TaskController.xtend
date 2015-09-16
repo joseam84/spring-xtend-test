@@ -39,7 +39,7 @@ class TaskController {
  
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     def TaskDTO findById(@PathVariable("id") Long id) {
-        service.findById(id).orElseThrow[new TaskNotFoundException(id)].toDTO
+        service.findById(id).orElseThrow[new TaskNotFoundException(id.toString)].toDTO
     }
  
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)

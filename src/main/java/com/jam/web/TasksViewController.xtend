@@ -1,0 +1,46 @@
+package com.jam.web;
+
+import com.jam.models.EmployeeService
+import com.jam.models.TaskService
+import com.jam.models.TopicDTO
+import com.jam.models.TopicGroupService
+import com.jam.models.TopicService
+import java.security.Principal
+import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.stereotype.Controller
+import org.springframework.ui.Model
+import org.springframework.web.bind.annotation.RequestMapping
+import com.jam.models.TopicGroupDTO
+
+@Controller
+public class TasksViewController {
+    
+    @Autowired EmployeeService employeeService
+    @Autowired TopicGroupService topicGroupService
+    @Autowired TopicService topicService
+    @Autowired TaskService taskService
+    
+    @RequestMapping(path = "/tasks") 
+    def topics(Model model, Principal principal){
+        val currentUser  = employeeService.findByUsername(principal.name) // Current user as Employee
+        val _tasks = taskService.findEmployeeTasks(currentUser)                 
+        val topicInTasks = _tasks.groupBy[t | t.topic]
+        var groupInTopic = topicInTasks.keySet.groupBy[tp | tp.group]
+        var tgDTO = groupInTopic.keySet.map[group | 
+           new TopicGroupDTO() => [
+               id = group.id
+               name = group.name
+               description = group.description
+               topics = group.topics.map[topic | 
+                   new TopicDTO => [
+                       id = topic.id
+                       name = topic.name
+                       description = topic.description
+                       tasks = topicInTasks.get(topic)    
+               ]]
+        ]]
+        model.addAttribute("topicgroups", tgDTO)
+        "tasks"
+    }
+
+}
