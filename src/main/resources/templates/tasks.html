@@ -6,16 +6,37 @@
 <body>
     <div th:include="fragment :: header('tasks')"></div>
     <div th:each="topicgroup:${topicgroups}">
-      <h2 class="panel-heading" th:text="${topicgroup.name}">Panel heading</h2>
-        <ul th:each="topic:${topicgroup.topics}">
-           <li>
-            <div th:text="${topic.name}"></div>
-	           <ul th:each="task:${topic.tasks}">
-	              <li><div th:text="${task.content}"></div></li>
-	           </ul>
-           </li>
-            
-       </ul>
+      <h2 th:text="${topicgroup.name}">Panel heading</h2> 
+      <div class="panel-group" id="accordion">
+        <div th:each="topic:${topicgroup.topics}" class="panel panel-default">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+	                <a th:text="${topic.name}" class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" th:href="@{#collapse} + ${topic.id}">Example Section</a>
+                </h4>
+            </div>
+            <div class="panel-collapse collapse in" th:id="collapse + ${topic.id}">
+                <div class="panel-body">
+		           <ul class="list-group">
+		              <th:block th:each="task,status:${topic.tasks}">
+		              <li class="list-group-item">
+		              <div class="form-group"  th:with="result=${status.index + 1}" >
+						  <label for="comment" th:text="${result}+':'">index:</label>
+						  <textarea class="form-control" rows="5" id="comment" th:text="${task.content}">sdfdsf</textarea>
+						</div>
+		              </li>
+		              </th:block>
+		              <li class="list-group-item">
+		              <form th:action="@{/new-task}" method="post" th:object="${newTask}">
+	                    <input type="hidden" th:value="${topic.id}" name="topicId" id="topicId" />
+	                    <textarea class="form-control" placeholder="New Task" rows="5" th:field="*{content}"></textarea>
+	                    <button type="submit" class="btn btn-default">Add Task</button>
+	                  </form>
+                    </li>
+		           </ul>
+	           </div>
+            </div>
+        </div>   
+      </div>
     </div>
 </body>
 </html>

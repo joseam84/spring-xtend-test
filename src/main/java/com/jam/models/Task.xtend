@@ -34,6 +34,7 @@ class TaskDTO{
     var Long id
     var Long topicId
     var Long employeeId
+    var Employee employee
     var String content
     new(){}
 }
@@ -59,10 +60,10 @@ class TaskExtensions{
 class TaskService implements BaseService<TaskDTO,Task, Long>{
     @Autowired TaskRepository taskRepo
     @Autowired EmployeeService empRepo
-    @Autowired TopicService topicRepo
+    @Autowired TopicService topicService
     override create(TaskDTO tdto) {
         taskRepo.save(new Task() => [
-            topic    = topicRepo.findById(tdto.topicId)
+            topic    = topicService.findById(tdto.topicId)
                         .orElseThrow[new TopicNotFoundException(id)]
             content  = tdto.content
             employee = empRepo.findById(tdto.employeeId)
@@ -85,7 +86,14 @@ class TaskService implements BaseService<TaskDTO,Task, Long>{
         persisted.content = tdto.content
         return persisted   
     }
-    
+    def addToTopic(TaskDTO task){
+        val _topic = topicService.findById(task.topicId).orElseThrow[new TopicNotFoundException(task.id)]
+        val taskToAdd = new Task() => 
+            [content = task.content 
+             topic = _topic
+             employee = task.employee]
+        taskRepo.save(taskToAdd)
+    }
     def findEmployeeTasks(Employee employee){
         Optional.ofNullable(taskRepo.findByEmployee(employee))
             .orElseThrow[new TaskNotFoundException(employee.username)]
