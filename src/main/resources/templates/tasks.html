@@ -17,20 +17,29 @@
             <div class="panel-collapse collapse in" th:id="collapse + ${topic.id}">
                 <div class="panel-body">
 		           <ul class="list-group">
+		              <!-- Use the th:block for invisible thymeleaf logic. -->
 		              <th:block th:each="task,status:${topic.tasks}">
 		              <li class="list-group-item">
-		              <div class="form-group"  th:with="result=${status.index + 1}" >
+		              <div class="form-group"  th:with="result=${status.index + 1}">
 						  <label for="comment" th:text="${result}+':'">index:</label>
-						  <textarea class="form-control" rows="5" id="comment" th:text="${task.content}">sdfdsf</textarea>
+						  <textarea class="form-control" rows="5" id="comment" name="comment" th:text="${task.content}">sdfdsf</textarea>
+						  <!-- Remove start-->
+						  <form th:action="@{/remove-task}" method="post" th:object="${taskToRemove}">
+                             <button class="btn" name="id" id="id" th:value="${task.id}" type="submit">
+                             <span class="glyphicon glyphicon-minus"></span></button>
+                          </form>
+                          <!-- Remove end -->
 						</div>
 		              </li>
 		              </th:block>
 		              <li class="list-group-item">
+		              <!-- Add start-->
 		              <form th:action="@{/new-task}" method="post" th:object="${newTask}">
 	                    <input type="hidden" th:value="${topic.id}" name="topicId" id="topicId" />
-	                    <textarea class="form-control" placeholder="New Task" rows="5" th:field="*{content}"></textarea>
-	                    <button type="submit" class="btn btn-default">Add Task</button>
+	                    <div><textarea class="form-control" placeholder="New Task" rows="5" th:field="*{content}"></textarea></div>
+	                    <div><button type="submit" class="btn"><span class="glyphicon glyphicon-plus"></span></button></div>
 	                  </form>
+	                  <!-- Add end-->
                     </li>
 		           </ul>
 	           </div>

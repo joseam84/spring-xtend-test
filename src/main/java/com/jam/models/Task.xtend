@@ -20,10 +20,10 @@ import java.time.LocalDateTime
 @Table(name ="task")
 @Accessors
 class Task extends Timestamp{
-    @ManyToOne(cascade=ALL)
+    @ManyToOne
     @JoinColumn(name="EMPLOYEE_ID", nullable=false)
     var Employee employee
-    @ManyToOne(cascade=ALL)
+    @ManyToOne
     var Topic topic
     var String content
     new(){}

@@ -45,6 +45,12 @@ public class TasksViewController {
         "tasks"
     }
     
+    @RequestMapping(path = "/remove-task", method=POST) 
+    def taskToRemove(@ModelAttribute TaskDTO taskToRemove){
+        taskService.delete(taskToRemove.id)
+        "redirect:tasks"
+    }
+    
     @RequestMapping(path = "/new-task", method=POST) 
     def taskSubmit(@ModelAttribute TaskDTO newTask, Principal principal, Model model){
         val creator  = employeeService.findByUsername(principal.name)
