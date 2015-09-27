@@ -1,9 +1,7 @@
 package com.jam.web;
 
-import com.jam.models.EmployeeNotFoundException
 import com.jam.models.EmployeeService
 import com.jam.models.TopicDTO
-import com.jam.models.TopicGroupNotFoundException
 import com.jam.models.TopicGroupService
 import com.jam.models.TopicService
 import java.security.Principal
